@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Trending Repos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple React app that allows you to view the latest trending repositories on GitHub. 
 
 ## Available Scripts
 
