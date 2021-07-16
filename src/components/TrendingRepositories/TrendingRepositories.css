@@ -1,0 +1,64 @@
+.main--wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 40em;
+  min-height: 100vh;
+  background-color: var(--primary-bg-color);
+  align-items: center;
+  justify-content: center;
+}
+
+header {
+  min-height: 4em;
+  font-size: 2em;
+  color: var(--primary-text-color);
+  text-align: center;
+}
+
+main {
+  flex: 1 0 auto;
+  width: 35em;
+  color: var(--primary-text-color);
+}
+
+.card--wrapper {
+  background-color: var(--tertiary-bg-color);
+  padding: 1em 2em 2em;
+  min-height: 62em;
+  border-radius: 2em;
+  border: 0.75em solid var(--primary-text-color);
+  margin-bottom: 10em;
+}
+
+.tabs--wrapper {
+  margin-bottom: 1em;
+}
+
+.tab--button {
+  position: relative;
+  color: var(--secondary-text-color);
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 1em 0;
+  min-width: 6em;
+  font-size: 1.25em;
+  margin-bottom: 0.2em;
+}
+.tab--button::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0.2em;
+  width: 100%;
+  background-color: var(--primary-text-color);
+  opacity: 0.4;
+}
+
+.tab--button-active {
+  color: var(--primary-text-color);
+}
+.tab--button-active::before {
+  opacity: 1;
+}
