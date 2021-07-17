@@ -2,7 +2,6 @@ import {
   render,
   screen,
   fireEvent,
-  waitForElementToBeRemoved,
   within,
 } from "@testing-library/react";
 import { TrendingRepositories } from "./TrendingRepositories";
@@ -33,8 +32,7 @@ describe("TrendingRepositories Component", () => {
     localStorage.setItem(KEY, VALUE);
     render(<TrendingRepositories />);
 
-    expect(localStorage.setItem).toHaveBeenLastCalledWith(KEY, VALUE);
-    expect(localStorage.__STORE__[KEY]).toBe(VALUE);
+    expect(localStorage.getItem).toHaveBeenLastCalledWith(KEY);
 
     const starredTabBtn = screen.getByTestId("starredTabBtn");
     fireEvent.click(starredTabBtn);
@@ -52,9 +50,9 @@ describe("TrendingRepositories Component", () => {
     render(<TrendingRepositories />);
 
     const repoItem = await screen.findByTestId("repo-item-2");
-    const repoItemBtn = within(repoItem).getByLabelText("toggleStarOff");
+    const repoItemStarBtn = within(repoItem).getByLabelText("toggleStarOff");
 
-    fireEvent.click(repoItemBtn);
+    fireEvent.click(repoItemStarBtn);
     const starredTabBtn = screen.getByTestId("starredTabBtn");
     fireEvent.click(starredTabBtn);
 
@@ -65,12 +63,17 @@ describe("TrendingRepositories Component", () => {
   });
 
   test("It adds a star to a repo", async () => {
+    const KEY = "starred-repos";
     fetchMock.mockResponse(JSON.stringify(mockTrendingRepos));
     render(<TrendingRepositories />);
 
     const repoItem = await screen.findByTestId("repo-item-2");
-    const repoItemBtn = within(repoItem).getByLabelText("toggleStarOn");
-    fireEvent.click(repoItemBtn);
+    const repoItemStarBtn = within(repoItem).getByLabelText("toggleStarOn");
+    fireEvent.click(repoItemStarBtn);
+
+    expect(localStorage.__STORE__[KEY]).toMatchInlineSnapshot(
+      `"[{\\"id\\":2,\\"name\\":\\"test2\\",\\"html_url\\":\\"https://github.com/tenacityteam/test2\\",\\"description\\":\\"Test description 2\\",\\"stargazers_count\\":202,\\"isStarred\\":true}]"`
+    );
 
     const starredTabBtn = screen.getByTestId("starredTabBtn");
     fireEvent.click(starredTabBtn);
